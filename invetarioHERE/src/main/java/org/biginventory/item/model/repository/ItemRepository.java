@@ -11,6 +11,18 @@ public class ItemRepository {
     public void addItem(Item item){
         this.itemList.add(item);
     }
+    public void deleteItem(int id){
+        for (Item item : itemList)
+        {
+            if (item.getItem_id() == id)
+            {
+            this.itemList.remove(item);
+            return;
+            }
+        System.out.println("No esta");
+        }
+    }
+
 
     public List<Item> getItemList() {
         return itemList;

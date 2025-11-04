@@ -16,6 +16,8 @@ public class ItemController {
 
         // Agregar acción al botón
         this.itemView.getBtnAgregar().addActionListener(e -> crearItem());
+        this.itemView.getBtnBorrar().addActionListener(e-> borrarItem());
+
     }
 
     public void crearItem() {
@@ -27,5 +29,19 @@ public class ItemController {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al cargar ítem: " + ex.getMessage());
         }
+    }
+    public void borrarItem() {
+        int filaSeleccionada = itemView.getTabla().getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione un ítem para borrar.");
+            return;
+        }
+
+        int id = (int) itemView.getTabla().getValueAt(filaSeleccionada, 0);
+
+        itemRepository.deleteItem(id);
+        itemView.mostrar(itemRepository.getItemList());
+        JOptionPane.showMessageDialog(null, "Ítem eliminado correctamente.");
     }
 }

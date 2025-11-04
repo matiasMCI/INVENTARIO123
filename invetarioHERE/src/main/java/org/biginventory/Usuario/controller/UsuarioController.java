@@ -25,4 +25,17 @@ public class UsuarioController {
     private final UsuarioRepositorio usuarioRepositorio;
     private final UsuarioView usuarioView;
     */
+    private final UsuarioRepositorio usuarioRepositorio;
+    private final UsuarioView usuarioView;
+
+    public UsuarioController(UsuarioRepositorio usuarioRepositorio, UsuarioView usuarioView){
+        this.usuarioRepositorio = usuarioRepositorio;
+        this.usuarioView = usuarioView;
+    }
+    public void crearUsuario(){
+    }
+    public void mostrarUsuario(){
+    }
+
+
 }

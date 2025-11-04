@@ -6,12 +6,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
+import java.util.Scanner;
 
 public class ItemView extends JFrame {
     private JTextField txtNombre;
     private JTextField txtPrecio;
     private JTextField txtCantidad;
     private JButton btnAgregar;
+    private JButton btnBorrar;
     private JTable tabla;
     private DefaultTableModel modeloTabla;
 
@@ -38,10 +40,18 @@ public class ItemView extends JFrame {
         panelFormulario.add(txtCantidad);
 
         btnAgregar = new JButton("Agregar ítem");
-        panelFormulario.add(btnAgregar);
+        btnBorrar = new JButton("Borrar item");
+// Panel de botones debajo del formulario
+        JPanel panelBotones = new JPanel(new FlowLayout());
+        panelBotones.add(btnAgregar);
+        panelBotones.add(btnBorrar);
 
-        add(panelFormulario, BorderLayout.SOUTH);
+        // Agregar formularios y botones al norte
+        JPanel panelSuperior = new JPanel(new BorderLayout());
+        panelSuperior.add(panelFormulario, BorderLayout.CENTER);
+        panelSuperior.add(panelBotones, BorderLayout.SOUTH);
 
+        add(panelSuperior, BorderLayout.NORTH);
         // Tabla para mostrar ítems
         modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Precio", "Cantidad"}, 0);
         tabla = new JTable(modeloTabla);
@@ -52,6 +62,13 @@ public class ItemView extends JFrame {
 
     public JButton getBtnAgregar() {
         return btnAgregar;
+    }
+
+    public JButton getBtnBorrar() {
+        return btnBorrar;
+    }
+    public JTable getTabla() {
+        return tabla;
     }
 
     public Item cargar() {
@@ -79,5 +96,7 @@ public class ItemView extends JFrame {
         txtPrecio.setText("");
         txtCantidad.setText("");
     }
+
+
 }
 
