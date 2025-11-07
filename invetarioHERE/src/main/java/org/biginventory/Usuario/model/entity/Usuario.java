@@ -2,14 +2,7 @@ package org.biginventory.Usuario.model.entity;
 
 public abstract class Usuario {
 
-/*+nombre: string
 
-+apellido: string
-
-+ email: string
-+ telefono: int
-
-*/
     private String dni;
     private String nombre;
     private String apellido;

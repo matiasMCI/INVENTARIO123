@@ -7,35 +7,22 @@ import org.biginventory.item.model.repository.ItemRepository;
 import org.biginventory.item.view.ItemView;
 
 public class UsuarioController {
-  /*  private final ItemRepository itemRepository;
-    private final ItemView itemView;
 
-    public ItemController(ItemRepository itemRepository, ItemView itemView) {
-        this.itemRepository = itemRepository;
-        this.itemView = itemView;
-    }
+  private final UsuarioRepositorio usuarioRepositorio;
+  private final UsuarioView usuarioView;
 
-    public void crearItem(){
-        itemRepository.addItem(itemView.cargar());
-    }
-    public void mostrarItem(){
-        itemView.mostrar(itemRepository.getItemList());
-    }*/
-/*
-    private final UsuarioRepositorio usuarioRepositorio;
-    private final UsuarioView usuarioView;
-    */
-    private final UsuarioRepositorio usuarioRepositorio;
-    private final UsuarioView usuarioView;
+  public UsuarioController(UsuarioRepositorio usuarioRepositorio, UsuarioView usuarioView) {
+    this.usuarioRepositorio = usuarioRepositorio;
+    this.usuarioView = usuarioView;
+  }
 
-    public UsuarioController(UsuarioRepositorio usuarioRepositorio, UsuarioView usuarioView){
-        this.usuarioRepositorio = usuarioRepositorio;
-        this.usuarioView = usuarioView;
-    }
-    public void crearUsuario(){
-    }
-    public void mostrarUsuario(){
-    }
+  public void crearUsuario() {
 
 
+  }
+
+  public void mostrarUsuario() {
+
+
+  }
 }

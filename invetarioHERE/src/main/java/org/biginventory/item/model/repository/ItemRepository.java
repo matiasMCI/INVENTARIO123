@@ -23,7 +23,6 @@ public class ItemRepository {
         }
     }
 
-
     public List<Item> getItemList() {
         return itemList;
     }

@@ -1,102 +1,122 @@
-package org.biginventory.item.view;
+    package org.biginventory.item.view;
 
-import org.biginventory.item.model.entity.Item;
+    import org.biginventory.item.model.entity.Item;
+    import org.biginventory.menu.view.MenuView;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.util.List;
-import java.util.Scanner;
+    import javax.swing.*;
+    import javax.swing.table.DefaultTableModel;
+    import java.awt.*;
+    import java.util.List;
 
-public class ItemView extends JFrame {
-    private JTextField txtNombre;
-    private JTextField txtPrecio;
-    private JTextField txtCantidad;
-    private JButton btnAgregar;
-    private JButton btnBorrar;
-    private JTable tabla;
-    private DefaultTableModel modeloTabla;
+    public class ItemView extends JFrame {
+        private JTextField txtNombre;
+        private JTextField txtPrecio;
+        private JTextField txtCantidad;
+        private JButton btnAgregar;
+        private JButton btnBorrar;
+        private JTable tabla;
+        private DefaultTableModel modeloTabla;
 
-    public ItemView() {
-        setTitle("Inventario de Ítems");
-        setSize(1280, 720);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        public ItemView(MenuView menuView) {
+            setTitle("Inventario de Ítems");
+            setSize(1280, 720);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLayout(new BorderLayout());
 
-        // Panel superior con formulario
-        JPanel panelFormulario = new JPanel(new GridLayout(4, 2, 5, 5));
-        panelFormulario.setBorder(BorderFactory.createTitledBorder("Agregar nuevo ítem"));
+            // Panel superior con formulario
+            JPanel panelFormulario = new JPanel(new GridLayout(5, 2, 5, 5));
+            panelFormulario.setBorder(BorderFactory.createTitledBorder("Agregar nuevo ítem"));
 
-        panelFormulario.add(new JLabel("Nombre:"));
-        txtNombre = new JTextField();
-        panelFormulario.add(txtNombre);
+            panelFormulario.add(new JLabel("Nombre:"));
+            txtNombre = new JTextField();
+            panelFormulario.add(txtNombre);
 
-        panelFormulario.add(new JLabel("Precio:"));
-        txtPrecio = new JTextField();
-        panelFormulario.add(txtPrecio);
+            panelFormulario.add(new JLabel("Precio:"));
+            txtPrecio = new JTextField();
+            panelFormulario.add(txtPrecio);
 
-        panelFormulario.add(new JLabel("Cantidad:"));
-        txtCantidad = new JTextField();
-        panelFormulario.add(txtCantidad);
+            panelFormulario.add(new JLabel("Cantidad:"));
+            txtCantidad = new JTextField();
+            panelFormulario.add(txtCantidad);
 
-        btnAgregar = new JButton("Agregar ítem");
-        btnBorrar = new JButton("Borrar item");
-// Panel de botones debajo del formulario
-        JPanel panelBotones = new JPanel(new FlowLayout());
-        panelBotones.add(btnAgregar);
-        panelBotones.add(btnBorrar);
+            btnBorrar = new JButton();
+            btnAgregar = new JButton("Agregar ítem");
 
-        // Agregar formularios y botones al norte
-        JPanel panelSuperior = new JPanel(new BorderLayout());
-        panelSuperior.add(panelFormulario, BorderLayout.CENTER);
-        panelSuperior.add(panelBotones, BorderLayout.SOUTH);
-
-        add(panelSuperior, BorderLayout.NORTH);
-        // Tabla para mostrar ítems
-        modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Precio", "Cantidad"}, 0);
-        tabla = new JTable(modeloTabla);
-        add(new JScrollPane(tabla), BorderLayout.CENTER);
-
-        setVisible(true);
-    }
-
-    public JButton getBtnAgregar() {
-        return btnAgregar;
-    }
-
-    public JButton getBtnBorrar() {
-        return btnBorrar;
-    }
-    public JTable getTabla() {
-        return tabla;
-    }
-
-    public Item cargar() {
-        String nombre = txtNombre.getText();
-        double precio = Double.parseDouble(txtPrecio.getText());
-        int cantidad = Integer.parseInt(txtCantidad.getText());
-
-        return new Item(nombre, precio, cantidad);
-    }
-
-    public void mostrar(List<Item> itemList) {
-        modeloTabla.setRowCount(0); // limpiar tabla
-        for (Item item : itemList) {
-            modeloTabla.addRow(new Object[]{
-                    item.getItem_id(),
-                    item.getNombre(),
-                    item.getPrecio(),
-                    item.getCantidad()
+            JButton btnSalir = new JButton("Salir");
+            btnSalir.addActionListener(e->{
+                int confirmar = JOptionPane.showConfirmDialog(this,
+                        "Seguro que desea salir?", "Confirmar salida",JOptionPane.YES_NO_OPTION);
+                if (confirmar == JOptionPane.YES_OPTION){
+                    this.dispose();
+                    menuView.setVisible(true);
+                }
             });
+
+            // Panel de botones debajo del formulario
+            JPanel panelBotones = new JPanel(new FlowLayout());
+            panelBotones.add(btnAgregar);
+            panelBotones.add(btnSalir);
+
+
+            // Agregar formularios y botones al norte
+            JPanel panelSuperior = new JPanel(new BorderLayout());
+            panelSuperior.add(panelFormulario, BorderLayout.CENTER);
+            panelSuperior.add(panelBotones, BorderLayout.SOUTH);
+
+            add(panelSuperior, BorderLayout.NORTH);
+            // Tabla para mostrar ítems
+            modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Precio", "Cantidad","Borrar"}, 0);
+            tabla = new JTable(modeloTabla);
+            add(new JScrollPane(tabla), BorderLayout.CENTER);
+
+            setVisible(true);
         }
+
+        public JButton getBtnBorrar() {
+            return btnBorrar;
+        }
+
+        public void setBtnBorrar(JButton btnBorrar) {
+            this.btnBorrar = btnBorrar;
+        }
+
+        public JButton getBtnAgregar() {
+            return btnAgregar;
+        }
+
+        public JTable getTabla() {
+            return tabla;
+        }
+
+        public Item cargar() {
+            String nombre = txtNombre.getText();
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int cantidad = Integer.parseInt(txtCantidad.getText());
+
+            return new Item(nombre, precio, cantidad);
+        }
+
+        public void mostrar(List<Item> itemList) {
+            modeloTabla.setRowCount(0); // limpiar tabla
+            JPanel panelBotonesView = new JPanel(new FlowLayout());
+
+            for (Item item : itemList) {
+                modeloTabla.addRow(new Object[]{
+                        item.getItem_id(),
+                        item.getNombre(),
+                        item.getPrecio(),
+                        item.getCantidad(),
+                        btnBorrar
+                });
+            }
+        }
+
+        public void limpiarCampos() {
+            txtNombre.setText("");
+            txtPrecio.setText("");
+            txtCantidad.setText("");
+        }
+
+
     }
-
-    public void limpiarCampos() {
-        txtNombre.setText("");
-        txtPrecio.setText("");
-        txtCantidad.setText("");
-    }
-
-
-}
 
